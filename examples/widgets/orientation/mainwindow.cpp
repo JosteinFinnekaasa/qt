@@ -45,6 +45,8 @@
 #include <QDesktopWidget>
 #include <QResizeEvent>
 
+QT_BEGIN_NAMESPACE
+
 //! [0]
 MainWindow::MainWindow(QWidget *parent) :
         QWidget(parent),
@@ -112,4 +114,6 @@ void MainWindow::onRadioButtonClicked(QAbstractButton *button)
     landscape.choiceWidget->setStyleSheet(imageStyle);
 }
 //! [4]
+
+QT_END_NAMESPACE
 
