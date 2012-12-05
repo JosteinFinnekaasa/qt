@@ -354,7 +354,7 @@ void *QGLContextPrivate::tryFormat(const QGLFormat &format)
 #ifndef QT_MAC_USE_COCOA
     GLint attribs[Max], cnt = 0;
     bool device_is_pixmap = (paintDevice->devType() == QInternal::Pixmap);
-
+   
     attribs[cnt++] = AGL_RGBA;
     attribs[cnt++] = AGL_BUFFER_SIZE;
     attribs[cnt++] = device_is_pixmap ? static_cast<QPixmap *>(paintDevice)->depth() : 32;
@@ -427,6 +427,9 @@ void *QGLContextPrivate::tryFormat(const QGLFormat &format)
     bool device_is_pixmap = (devType == QInternal::Pixmap);
     int depth = device_is_pixmap ? static_cast<QPixmap *>(paintDevice)->depth() : 32;
 
+    attribs[cnt++] = NSOpenGLPFAOpenGLProfile;
+    attribs[cnt++] = NSOpenGLProfileVersion3_2Core;
+    
     attribs[cnt++] = NSOpenGLPFAColorSize;
     attribs[cnt++] = depth;
 
