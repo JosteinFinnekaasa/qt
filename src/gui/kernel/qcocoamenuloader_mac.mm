@@ -68,16 +68,7 @@ QT_USE_NAMESPACE
     servicesItem = [[appMenu itemWithTitle:@"Services"] retain];
     hideAllOthersItem = [[appMenu itemWithTitle:@"Hide Others"] retain];
     showAllItem = [[appMenu itemWithTitle:@"Show All"] retain];
-
-    // Get the names in the nib to match the app name set by Qt.
-    const NSString *appName = reinterpret_cast<const NSString*>(QCFString::toCFStringRef(qAppName()));
-    [quitItem setTitle:[[quitItem title] stringByReplacingOccurrencesOfString:@"NewApplication"
-                                                                   withString:const_cast<NSString *>(appName)]];
-    [hideItem setTitle:[[hideItem title] stringByReplacingOccurrencesOfString:@"NewApplication"
-                                                                   withString:const_cast<NSString *>(appName)]];
-    [aboutItem setTitle:[[aboutItem title] stringByReplacingOccurrencesOfString:@"NewApplication"
-                                                                   withString:const_cast<NSString *>(appName)]];
-    [appName release];
+    
     // Disable the items that don't do anything. If someone associates a QAction with them
     // They should get synced back in.
     [preferencesItem setEnabled:NO];
@@ -226,6 +217,16 @@ QT_USE_NAMESPACE
 
 - (void)qtUpdateMenubar
 {
+    // Get the names in the nib to match the app name set by Qt.
+    // const NSString *appName = reinterpret_cast<const NSString*>(QCFString::toCFStringRef(qAppName()));
+    const NSString *appName = [[NSString stringWithFormat:@"Creation Platform"] retain];
+    // [pzion 20121207] Why doesn't this work??
+    [appMenu setTitle:[NSString stringWithFormat:@"%@", appName]];
+    [quitItem setTitle:[NSString stringWithFormat:@"Quit %@", appName]];
+    [hideItem setTitle:[NSString stringWithFormat:@"Hide %@", appName]];
+    [aboutItem setTitle:[NSString stringWithFormat:@"About %@", appName]];
+    [appName release];
+    
     QMenuBarPrivate::macUpdateMenuBarImmediatly();
 }
 
