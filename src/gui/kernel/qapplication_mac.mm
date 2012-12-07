@@ -1256,18 +1256,19 @@ void qt_init(QApplicationPrivate *priv, int)
         [newDelegate setReflectionDelegate:oldDelegate];
         [cocoaApp setDelegate:newDelegate];
 
-#if 0
         QT_MANGLE_NAMESPACE(QCocoaMenuLoader) *qtMenuLoader = [[QT_MANGLE_NAMESPACE(QCocoaMenuLoader) alloc] init];
         if ([NSBundle loadNibNamed:@"qt_menu" owner:qtMenuLoader] == false) {
-            qFatal("Qt internal error: qt_menu.nib could not be loaded. The .nib file"
-                   " should be placed in QtGui.framework/Versions/Current/Resources/ "
-                   " or in the resources directory of your application bundle.");
+            NSDictionary *context = [NSDictionary dictionaryWithObjectsAndKeys:qtMenuLoader, @"NSOwner", nil];
+            if ([NSBundle loadNibFile:@"/Library/FabricEngine/CreationPlatform/Python/2.7/qt_menu.nib" externalNameTable:context withZone:qtMenuLoader.zone] == false) {
+                qFatal("Qt internal error: qt_menu.nib could not be loaded. The .nib file"
+                       " should be placed in QtGui.framework/Versions/Current/Resources/ "
+                       " or in the resources directory of your application bundle.");
+            }
         }
 
         [cocoaApp setMenu:[qtMenuLoader menu]];
         [newDelegate setMenuLoader:qtMenuLoader];
         [qtMenuLoader release];
-#endif
     }
 #endif
     // Register for Carbon tablet proximity events on the event monitor target.
