@@ -753,7 +753,7 @@ qmakeAddCacheClear(qmakeCacheClearFunc func, void **data)
 QString qmake_libraryInfoFile()
 {
     if(!Option::qmake_abslocation.isEmpty())
-        return QDir(QFileInfo(Option::qmake_abslocation).absolutePath()).filePath("qt.conf");
+        return QDir(QFileInfo(Option::qmake_abslocation).absolutePath()).filePath("qt_cpsafe.conf");
     return QString();
 }
 

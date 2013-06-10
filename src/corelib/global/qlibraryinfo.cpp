@@ -68,6 +68,8 @@ QT_END_NAMESPACE
 
 #include "qconfig.cpp"
 
+#define QT_CONF_FILENAME "qt_cpsafe.conf"
+
 QT_BEGIN_NAMESPACE
 
 extern void qDumpCPUFeatures(); // in qsimd.cpp
@@ -108,7 +110,7 @@ QLibrarySettings::QLibrarySettings()
 
 QSettings *QLibraryInfoPrivate::findConfiguration()
 {
-    QString qtconfig = QLatin1String(":/qt/etc/qt.conf");
+    QString qtconfig = QLatin1String(":/qt/etc/" QT_CONF_FILENAME);
 #ifdef BOOTSTRAPPING
     if(!QFile::exists(qtconfig))
         qtconfig = qmake_libraryInfoFile();
@@ -118,7 +120,7 @@ QSettings *QLibraryInfoPrivate::findConfiguration()
 	CFBundleRef bundleRef = CFBundleGetMainBundle();
         if (bundleRef) {
 	    QCFType<CFURLRef> urlRef = CFBundleCopyResourceURL(bundleRef,
-							       QCFString(QLatin1String("qt.conf")),
+							       QCFString(QLatin1String(QT_CONF_FILENAME)),
 							       0,
 							       0);
 	    if (urlRef) {
@@ -130,7 +132,7 @@ QSettings *QLibraryInfoPrivate::findConfiguration()
 #endif
             {
                 QDir pwd(QCoreApplication::applicationDirPath());
-                qtconfig = pwd.filePath(QLatin1String("qt.conf"));
+                qtconfig = pwd.filePath(QLatin1String(QT_CONF_FILENAME));
 	    }
     }
 #endif
