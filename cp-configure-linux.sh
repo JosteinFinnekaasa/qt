@@ -1,2 +1,2 @@
 #!/bin/sh
-./configure -release -opensource -shared -fast -no-qt3support -qtnamespace CPSafeQt -qtlibinfix _CPSafe -no-scripttools
+./configure -release -opensource -shared -fast -no-qt3support -qtnamespace CPSafeQtPy26 -qtlibinfix _CPSafePy26 -no-scripttools -no-gtkstyle
